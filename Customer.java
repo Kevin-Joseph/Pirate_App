@@ -4,8 +4,9 @@ public class Customer {
 	protected String firstName;
 	protected String lastName;
 	protected String address;
+	protected String state;
 	protected int zip;
-	protected int phoneNum;
+	protected long phoneNum;
 	protected String email;
 	
 	//********************************************Constructor
@@ -28,10 +29,13 @@ public class Customer {
 	public String getAddress() {
 		return address;
 	}
+	public String getState() {
+		return state;
+	}
 	public int getZip() {
 		return zip;
 	}
-	public int getPhoneNum() {
+	public long getPhoneNum() {
 		return phoneNum;
 	}
 	public String getEmail() {
@@ -49,14 +53,28 @@ public class Customer {
 	public void setAddress(String s) {
 		address = s;
 	}
+	public void setState(String s) {
+		state = s;
+	}
 	public void setZip(int i) {
 		zip = i;
 	}
-	public void setPhoneNum(int i) {
+	public void setPhoneNum(long i) {
 		phoneNum = i;
 	}
 	public void setEmail(String s) {
 		email = s;
+	}
+	
+	//**********************************************other
+	public String toString() {
+		String st = this.getFirstName() + " " + this.getLastName() + '\n' +
+					this.getAddress() + '\n' + 
+					this.getState() + " " + this.getZip() + '\n' +
+					this.getPhoneNum() + '\n' + 
+					this.getEmail() + '\n';
+		
+		return st;
 	}
 	
 }

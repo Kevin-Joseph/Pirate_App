@@ -1,24 +1,35 @@
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class Order {
 	
 	protected Customer customer;
 	protected String date;
-	protected Vector<Product> products = new Vector<Product>();
+	
+	//Vector<Product> products = new Vector<Product>(5);
+	//Vector<Eye_Patches> eye_patches = new Vector<Eye_Patches>();
+	
+	ArrayList<Product> products = new ArrayList<Product>();
+	
+	//protected Vector<Product> products = new Vector<Product>();
+	
 	protected double total;
 	protected boolean hasDiscount;
 	protected double discount;
-	
+	protected long ccNumber;
 	//*****************************************************Constructor
 	public Order() {
 		date ="" + java.time.LocalDate.now();
 		total = 0.0;
 		hasDiscount = false;
 		discount = 0.0;
+		ccNumber = 0000000000;
 	}
 	
 	//****************************************************Getters
-	public double getTotal() {
+	public double calcTotal() {
+		double total = 0;
+		
 		return total;
 	}
 	public boolean checkHasDisount() {
@@ -26,6 +37,9 @@ public class Order {
 	}
 	public double getDiscount() {
 		return discount;
+	}
+	public double getCCNumber() {
+		return ccNumber;
 	}
 	
 	//*****************************************************Setters
@@ -38,8 +52,15 @@ public class Order {
 		products.add(p);
 	}
 	public void removeProduct(int index) {
-		products.remove(index);
+		products.remove(index);		
 	}
+	
+	public void addEye_Patch(Eye_Patches ep) {
+		products.add(ep);
+	}
+	//public void removeProduct(int index) {
+	//	products.remove(index);
+	//}
 	
 	//might need a getIndex function.
 	
@@ -51,6 +72,9 @@ public class Order {
 	}
 	public void setDisount(double d) {
 		discount = d;
+	}
+	public void setCCNumber(long l) {
+		ccNumber = l;
 	}
 
 }

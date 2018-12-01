@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.math.BigDecimal;
 
 public class Pirate_Hats extends Product{
 	
@@ -7,15 +8,18 @@ public class Pirate_Hats extends Product{
 	protected String style;
 
 	//**********************************************Constructor
+	@SuppressWarnings("deprecation")
 	public Pirate_Hats() {
-		name = "Enter Name";
+		name = "Pirate Hat";
 		type = "Enter Type";
-		price = 0.0;
+		price = new BigDecimal("30");
+		price = price.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 		availability = false;
 		color = Color.GRAY;
-		salestax = 0.0; //could be static
+		salestax = new BigDecimal("0.0825"); //could be static
+		salestax = salestax.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 		material = "Leather";
-		size = 'n';
+		size = 'S';
 		style = "The Jack Sparrow";
 	}
 
@@ -31,7 +35,7 @@ public class Pirate_Hats extends Product{
 	}
 
 	@Override
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
@@ -46,7 +50,7 @@ public class Pirate_Hats extends Product{
 	}
 
 	@Override
-	public double getSalesTax() {
+	public BigDecimal getSalesTax() {
 		return salestax;
 	}
 	
@@ -62,6 +66,10 @@ public class Pirate_Hats extends Product{
 		return style;
 	}
 	
+	public int getNumberToOrder() {
+		return numberToOrder;
+	}
+	
 	//**************************************************Setters
 	@Override
 	public void setName(String s) {
@@ -74,7 +82,7 @@ public class Pirate_Hats extends Product{
 	}
 
 	@Override
-	public void setPrice(double d) {
+	public void setPrice(BigDecimal d) {
 		price = d;
 	}
 
@@ -89,7 +97,7 @@ public class Pirate_Hats extends Product{
 	}
 
 	@Override
-	public void setSalesTax(double d) {
+	public void setSalesTax(BigDecimal d) {
 		salestax = d;
 	}
 	
@@ -103,5 +111,37 @@ public class Pirate_Hats extends Product{
 
 	public void setStyle(String s) {
 		style = s;
+	}
+	
+	public void setNumberToOrder(int num) {
+		numberToOrder = num;
+	}
+	
+	//****************************************************************new
+	public BigDecimal calcTotal(int numToOrder, char s, BigDecimal disc) {
+		BigDecimal total = this.price;
+	
+		switch(s) {
+		case 'S': total = total.add(new BigDecimal("5")); break;
+		case 'M': total = total.add(new BigDecimal("10")); break;
+		case 'L': total = total.add(new BigDecimal("15")); break;
+		}
+		
+		total = total.multiply(new BigDecimal("1").subtract(disc));
+		BigDecimal baseTotal = new BigDecimal(total.toPlainString());
+		for(int i = 1; i < numToOrder; i++) {
+			total = total.add(baseTotal); 
+		}
+		total = total.multiply(this.salestax.add(new BigDecimal("1")));
+		total = total.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+		
+		return total;
+	}
+	
+	public String toString() {
+		String s = "[" + this.getNumberToOrder() + "]" + this.getName() +
+				   "---" + this.getSize() + " " + this.getMaterial() + " $" + 
+				   this.calcTotal(this.getNumberToOrder(), this.getSize(), new BigDecimal("0"));
+		return s;		
 	}
 }
