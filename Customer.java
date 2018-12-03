@@ -6,7 +6,7 @@ public class Customer {
 	protected String address;
 	protected String state;
 	protected int zip;
-	protected long phoneNum;
+	protected String phoneNum;
 	protected String email;
 	
 	//********************************************Constructor
@@ -15,7 +15,7 @@ public class Customer {
 		lastName = " Set Last Name";
 		address = "Set Address";
 		zip = 11111;
-		phoneNum = 1111111111;
+		phoneNum = "1111111111";
 		email = "Set Email";	
 	}
 	
@@ -35,7 +35,7 @@ public class Customer {
 	public int getZip() {
 		return zip;
 	}
-	public long getPhoneNum() {
+	public String getPhoneNum() {
 		return phoneNum;
 	}
 	public String getEmail() {
@@ -59,7 +59,7 @@ public class Customer {
 	public void setZip(int i) {
 		zip = i;
 	}
-	public void setPhoneNum(long i) {
+	public void setPhoneNum(String i) {
 		phoneNum = i;
 	}
 	public void setEmail(String s) {

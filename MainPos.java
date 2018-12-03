@@ -22,6 +22,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -36,6 +37,7 @@ public class MainPos extends JFrame implements ActionListener {
 	JButton add = new JButton("Add Items");
 	JButton remove = new JButton("Remove Items");
 	JButton print = new JButton("Print");
+	JButton updateTotal = new JButton("Update Total");
 	
 	
 	
@@ -105,6 +107,7 @@ public class MainPos extends JFrame implements ActionListener {
 	
 	JFrame f = new JFrame();
 
+	BigDecimal totalItemPrice = new BigDecimal("0");
 
 	
 	public static void main(String[] args) {
@@ -131,6 +134,12 @@ public class MainPos extends JFrame implements ActionListener {
 	MainPos() {
 		
 		JLabel onBackground = new JLabel();
+		
+		
+		
+		onBackground.add(updateTotal);
+		updateTotal.setBounds(1075, 250, 125, 25);
+		updateTotal.addActionListener(this);
 
 		trackTotal = new BigDecimal("0");
 		num_eye_patches = 0; num_hats = 0; num_telescopes = 0;
@@ -319,7 +328,6 @@ public class MainPos extends JFrame implements ActionListener {
 			size.addItem("S");
 			size.addItem("M");
 			size.addItem("L");
-			size.addItem("Shmedium");
 			onBackground.add(size);
 			size.setBounds(750, 265, 125, 30);
 			size.setVisible(true);
@@ -369,7 +377,7 @@ public class MainPos extends JFrame implements ActionListener {
 					Eye_Patches newItem = new Eye_Patches();
 					BigDecimal basePrice = newItem.getPrice();
 					basePrice = basePrice.setScale(2, BigDecimal.ROUND_HALF_EVEN);
-					BigDecimal totalItemPrice = new BigDecimal("0");
+					//BigDecimal totalItemPrice = new BigDecimal("0");
 					int selectSize = size.getSelectedIndex();
 					char chSize = 'S';
 					switch(selectSize) {
@@ -498,7 +506,7 @@ public class MainPos extends JFrame implements ActionListener {
 				customer.setAddress(address.getText().trim());
 				customer.setState(state.getText().trim());
 				customer.setZip(Integer.parseInt(zip.getText().trim()));
-				customer.setPhoneNum(Integer.parseInt(phone.getText().trim()));
+				customer.setPhoneNum(phone.getText().trim());
 				customer.setEmail(email.getText().trim());
 
 				f.setSize(400, 600);
@@ -519,9 +527,7 @@ public class MainPos extends JFrame implements ActionListener {
 				reviewBtns.add(printBtn, BorderLayout.SOUTH);
 				reviewBtns.add(doneBtn, BorderLayout.SOUTH);
 				reviewBtns.add(orderBtn, BorderLayout.SOUTH);
-				printBtn.addActionListener(this);
-				doneBtn.addActionListener(this);
-				orderBtn.addActionListener(this);
+
 				JLabel custInfo = new JLabel(customer.toString());
 				custInfo.setSize(400, 200);
 			    ta.append(customer.toString());
@@ -537,6 +543,30 @@ public class MainPos extends JFrame implements ActionListener {
 			    
 				review.add(reviewBtns, BorderLayout.SOUTH);
 				
+				printBtn.addActionListener(action -> {			
+					PrintPreviewPanel ppp = new PrintPreviewPanel(trackTotal, order.products);
+					// submit print job:
+					PrinterJob job = PrinterJob.getPrinterJob();
+					job.setPrintable(ppp);
+				
+					if (job.printDialog()) {
+						try {
+							job.print();
+						} catch(PrinterException x_x) {
+							System.out.println("Error printing: " + x_x);
+						}
+					}
+				
+				});
+				
+				doneBtn.addActionListener(action -> {
+					f.dispose();
+				});
+				orderBtn.addActionListener(action -> {
+					f.dispose();
+					JOptionPane.showMessageDialog(null, "Thank you for your busienss. Your order has been placed", "InfoBox: ", JOptionPane.INFORMATION_MESSAGE);
+				});
+				
 				
 			}else if (e.getSource() == print) {
 				customer.setFirstName(firstName.getText().trim());
@@ -544,7 +574,7 @@ public class MainPos extends JFrame implements ActionListener {
 				customer.setAddress(address.getText().trim());
 				customer.setState(state.getText().trim());
 				customer.setZip(Integer.parseInt(zip.getText().trim()));
-				customer.setPhoneNum(Integer.parseInt(phone.getText().trim()));
+				customer.setPhoneNum(phone.getText().trim());
 				customer.setEmail(email.getText().trim());
 
 				f.setSize(400, 600);
@@ -576,6 +606,44 @@ public class MainPos extends JFrame implements ActionListener {
 					}
 				
 				});
+			}else if(e.getSource() == updateTotal) {
+				BigDecimal disc = new BigDecimal("0");
+				disc = disc.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+				
+				
+				if(override.getText().isEmpty() == false) {
+					
+					//totalItemPrice = new BigDecimal(override.getText().trim());
+					//totalItemPrice = totalItemPrice.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+					trackTotal = new BigDecimal(override.getText().trim());
+					numOrderTotal.setText("$" + trackTotal.toPlainString());
+					
+				}else if(coupon.getText().isEmpty() == false) {
+					//System.out.println("in coupon");
+					String temp = coupon.getText().trim();
+					System.out.println(temp);
+					if(temp.equals("12345")) {
+						System.out.println("in coupon");
+
+					//	disc = new BigDecimal(".25");
+						trackTotal = trackTotal.multiply(new BigDecimal("1").subtract(new BigDecimal(".25")));
+						trackTotal = trackTotal.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+
+						numOrderTotal.setText("$" + trackTotal.toPlainString());
+					}
+				}else if(discount.getText().isEmpty() == false) {
+					//String discnt = discount.getText().trim();
+					//disc = new BigDecimal(discount.getText().trim());
+					trackTotal = trackTotal.multiply(new BigDecimal("1").subtract(new BigDecimal(".25")));
+					trackTotal = trackTotal.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+
+					numOrderTotal.setText("$" + trackTotal.toPlainString());
+				}
+
+				
+				//totalItemPrice = totalItemPrice.multiply(new BigDecimal("1").subtract(disc));
+				//totalItemPrice = totalItemPrice.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+
 			}
 			
 	}//End of action listener
