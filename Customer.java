@@ -4,6 +4,7 @@ public class Customer {
 	protected String firstName;
 	protected String lastName;
 	protected String address;
+	protected String city;
 	protected String state;
 	protected int zip;
 	protected String phoneNum;
@@ -29,6 +30,9 @@ public class Customer {
 	public String getAddress() {
 		return address;
 	}
+	public String getCity() {
+		return city;
+	}
 	public String getState() {
 		return state;
 	}
@@ -53,6 +57,9 @@ public class Customer {
 	public void setAddress(String s) {
 		address = s;
 	}
+	public void setCity(String s) {
+		city = s;
+	}
 	public void setState(String s) {
 		state = s;
 	}
@@ -69,7 +76,7 @@ public class Customer {
 	//**********************************************other
 	public String toString() {
 		String st = this.getFirstName() + " " + this.getLastName() + '\n' +
-					this.getAddress() + '\n' + 
+					this.getAddress() + '\n' + this.getCity() + ", " +
 					this.getState() + " " + this.getZip() + '\n' +
 					this.getPhoneNum() + '\n' + 
 					this.getEmail() + '\n';
