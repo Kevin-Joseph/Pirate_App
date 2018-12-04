@@ -95,7 +95,7 @@ public class MainPos extends JFrame implements ActionListener {
 	JButton eyePatch_B = new JButton(eyePatch_I);
 	ImageIcon hat_I = new ImageIcon("pirateHatGuy.jpg"); 
 	JButton hat_B = new JButton(hat_I);
-	ImageIcon telescope_I = new ImageIcon("telescope.jpg"); 
+	ImageIcon telescope_I = new ImageIcon("pirateTelescope.jpg"); 
 	JButton telescope_B = new JButton(telescope_I);
 	
     JCheckBox pirateHat_CB = new JCheckBox("Pirate hat");
