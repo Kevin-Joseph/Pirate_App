@@ -20,7 +20,7 @@ class MyPanel extends JPanel {
         super.paintComponent(g);
         
         try {
-            File pathToFile = new File("Gradient-blue-1.jpg");
+            File pathToFile = new File("background_3.jpg");
             Image image = ImageIO.read(pathToFile);
        		g.drawImage(image, 0, 0, this);
 

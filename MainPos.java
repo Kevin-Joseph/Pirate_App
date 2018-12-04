@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -45,6 +46,7 @@ public class MainPos extends JFrame implements ActionListener {
 	JTextField firstName = new JTextField();
 	JTextField lastName = new JTextField();
 	JTextField address = new JTextField();
+	JTextField city = new JTextField();
 	JTextField state = new JTextField();
 	JTextField zip = new JTextField();
 	JTextField email = new JTextField();
@@ -70,7 +72,7 @@ public class MainPos extends JFrame implements ActionListener {
 	JScrollPane jspsummary = new JScrollPane(ordersummary);
 	
 	JLabel firstNamel = new JLabel("<html><font color='blue'>First Name: </font></html>"), lastNamel = new JLabel("lastName: "), 
-			addressl= new JLabel("Address: "), statel = new JLabel("state: "), 
+			addressl= new JLabel("Address: "), cityl = new JLabel("City: "), statel = new JLabel("State: "), 
 			zipl = new JLabel("zip: "), emaill = new JLabel("email: "), phonel = new JLabel("Phone: "),
 			couponl = new JLabel("Coupon: "), discountl = new JLabel("Discount: "), 
 			overridel = new JLabel("Override: "), icon, datel = new JLabel("" + java.time.LocalDate.now());
@@ -89,9 +91,9 @@ public class MainPos extends JFrame implements ActionListener {
 
 	int numberOfProducts = 0;
 
-	ImageIcon eyePatch_I = new ImageIcon("eyePatch.jpg"); 
+	ImageIcon eyePatch_I = new ImageIcon("eyePatchGuy.jpg"); 
 	JButton eyePatch_B = new JButton(eyePatch_I);
-	ImageIcon hat_I = new ImageIcon("pirateHat.jpg"); 
+	ImageIcon hat_I = new ImageIcon("pirateHatGuy.jpg"); 
 	JButton hat_B = new JButton(hat_I);
 	ImageIcon telescope_I = new ImageIcon("telescope.jpg"); 
 	JButton telescope_B = new JButton(telescope_I);
@@ -137,47 +139,45 @@ public class MainPos extends JFrame implements ActionListener {
 		
 		
 		
-		onBackground.add(updateTotal);
-		updateTotal.setBounds(1075, 250, 125, 25);
-		updateTotal.addActionListener(this);
+
 
 		trackTotal = new BigDecimal("0");
 		num_eye_patches = 0; num_hats = 0; num_telescopes = 0;
 		
 		eyePatches.setFont( new Font("Courier New", 2, 24) );
 		eyePatches.setText("EYE PATCHES");
-		eyePatches.setBounds(1075, 300, 200, 24);
+		eyePatches.setBounds(850, 300 + 100, 200, 24);
 		numEyePatches.setFont( new Font("Courier New", 1, 24) );
 		numEyePatches.setText("-0-");
-		numEyePatches.setBounds(1075, 330, 200, 24);
+		numEyePatches.setBounds(850, 330 + 100, 200, 24);
 		onBackground.add(eyePatches);
 		onBackground.add(numEyePatches);
 		
 		hats.setFont( new Font("Courier New", 2, 24) );
 		hats.setText("HATS");
-		hats.setBounds(1075, 370, 200, 24);
+		hats.setBounds(850, 370 + 100, 200, 24);
 		numHats.setFont( new Font("Courier New", 1, 24) );
 		numHats.setText("-0-");
-		numHats.setBounds(1075, 400, 200, 24);
+		numHats.setBounds(850, 400 + 100, 200, 24);
 		onBackground.add(hats);
 		onBackground.add(numHats);
 
 		telescopes.setFont( new Font("Courier New", 2, 24) );
 		telescopes.setText("TELESCOPES");
-		telescopes.setBounds(1075, 440, 200, 24);
+		telescopes.setBounds(850, 440 + 100, 200, 24);
 		numTelescopes.setFont( new Font("Courier New", 1, 24) );
 		numTelescopes.setText("-0-");
-		numTelescopes.setBounds(1075, 470, 200, 24);
+		numTelescopes.setBounds(850, 470 + 100, 200, 24);
 		onBackground.add(telescopes);
 		onBackground.add(numTelescopes);
 		
 
 		orderTotal.setFont( new Font("Courier New", 2, 24) );
 		orderTotal.setText("ORDER TOTAL");
-		orderTotal.setBounds(1075, 510, 200, 24);
+		orderTotal.setBounds(850, 510 + 100, 200, 24);
 		numOrderTotal.setFont( new Font("Courier New", 1, 24) );
 		numOrderTotal.setText("$-0-");
-		numOrderTotal.setBounds(1075, 540, 200, 24);
+		numOrderTotal.setBounds(850, 540 + 100, 200, 24);
 		onBackground.add(orderTotal);
 		onBackground.add(numOrderTotal);
 
@@ -189,15 +189,15 @@ public class MainPos extends JFrame implements ActionListener {
 
 		//Code to add a button with only an image 
 		onBackground.add(eyePatch_B);
-		eyePatch_B.setBounds(450, 75, 200, 200);
+		eyePatch_B.setBounds(400, 75, 200, 200);
 		eyePatch_B.addActionListener(this);
 		
 		onBackground.add(hat_B);
-		hat_B.setBounds(450, 300, 200, 200);
+		hat_B.setBounds(610, 75, 200, 200);
 		hat_B.addActionListener(this);
 
 		onBackground.add(telescope_B);
-		telescope_B.setBounds(450, 525, 200, 200);
+		telescope_B.setBounds(820, 75, 200, 200);
 		telescope_B.addActionListener(this);
 		//Code to add a button with only an image ^^^^^^^
 		
@@ -205,17 +205,17 @@ public class MainPos extends JFrame implements ActionListener {
 	    eyePatch_CB.setMnemonic(KeyEvent.VK_E); 
 	    eyePatch_CB.setSelected(false);
 	    onBackground.add(eyePatch_CB);
-	    eyePatch_CB.setBounds(655, 125, 85, 25);
+	    eyePatch_CB.setBounds(450, 280, 85, 25);
 	    
 	    pirateHat_CB.setMnemonic(KeyEvent.VK_P); 
 	    pirateHat_CB.setSelected(false);
 	    onBackground.add(pirateHat_CB);
-	    pirateHat_CB.setBounds(655, 400, 85, 25);
+	    pirateHat_CB.setBounds(655, 280, 85, 25);
 
 	    telescope_CB.setMnemonic(KeyEvent.VK_T); 
 	    telescope_CB.setSelected(false);
 	    onBackground.add(telescope_CB);
-	    telescope_CB.setBounds(655, 625, 85, 25);
+	    telescope_CB.setBounds(900, 280, 85, 25);
 
 
 		
@@ -245,91 +245,101 @@ public class MainPos extends JFrame implements ActionListener {
 		
 			p.add(firstName);
 			onBackground.add(firstNamel);
-			firstName.setBounds(125, 75, 100, 30);
-			firstNamel.setBounds(35, 75, 100, 30);
+			firstName.setBounds(125, 75 + 50, 200, 30);
+			firstNamel.setBounds(35, 75 + 50, 100, 30);
 			
 			p.add(lastName);
 			onBackground.add(lastNamel);
-			lastName.setBounds(125, 107, 175, 30);
-			lastNamel.setBounds(35, 107, 100, 30);
+			lastName.setBounds(125, 107 + 50, 200, 30);
+			lastNamel.setBounds(35, 107 + 50, 100, 30);
 			
 			p.add(address);
 			onBackground.add(addressl);
-			address.setBounds(125, 139, 225, 30);
-			addressl.setBounds(35, 139, 100, 30);
+			address.setBounds(125, 139 + 50, 200, 30);
+			addressl.setBounds(35, 139 + 50, 100, 30);
+			
+			p.add(city);
+			onBackground.add(cityl);
+			city.setBounds(125, 171 + 50, 200, 30);
+			cityl.setBounds(35, 171 + 50, 100, 30);
 			
 			p.add(state);
 			onBackground.add(statel);
-			state.setBounds(125, 171, 225, 30);
-			statel.setBounds(35, 171, 100, 30);
+			state.setBounds(125, 203 + 50, 200, 30);
+			statel.setBounds(35, 203 + 50, 100, 30);
 			
 			p.add(zip);
 			onBackground.add(zipl);
-			zip.setBounds(125, 203, 113, 30);
-			zipl.setBounds(35, 203, 50, 30);
+			zip.setBounds(125, 235 + 50, 200, 30);
+			zipl.setBounds(35, 235 + 50, 50, 30);
 			
 			p.add(email);
 			onBackground.add(emaill);
-			email.setBounds(125, 235, 113, 30);
-			emaill.setBounds(35, 235, 50, 30);
+			email.setBounds(125, 267 + 50, 200, 30);
+			emaill.setBounds(35, 267 + 50, 50, 30);
 			
 			p.add(phone);
 			onBackground.add(phonel);
-			phone.setBounds(125, 267, 200, 30);
-			phonel.setBounds(35, 267, 100, 30);
+			phone.setBounds(125, 299 + 50, 200, 30);
+			phonel.setBounds(35, 299 + 50, 100, 30);
 			
 			p.add(coupon);
 			onBackground.add(couponl);
-			coupon.setBounds(1125, 100, 200, 30);
-			couponl.setBounds(1070, 100, 100, 30);
+			coupon.setBounds(1125, 100 + 300, 200, 30);
+			couponl.setBounds(1070, 100 + 300, 100, 30);
 			
 			p.add(discount);
 			onBackground.add(discountl);
-			discount.setBounds(1125, 150, 200, 30);
-			discountl.setBounds(1070, 150, 100, 30);
+			discount.setBounds(1125, 150 + 300, 200, 30);
+			discountl.setBounds(1070, 150 + 300, 100, 30);
 			
 			p.add(override);
 			onBackground.add(overridel);
-			override.setBounds(1125, 200, 200, 30);
-			overridel.setBounds(1070, 200, 100, 30);
+			override.setBounds(1125, 200 + 300, 200, 30);
+			overridel.setBounds(1070, 200 + 300, 100, 30);
 			
 			onBackground.add(jsppurchase);
 			jsppurchase.setBounds(525, 500, 175, 150);
 			jsppurchase.setVisible(false);
 			
 			onBackground.add(jsporder);
-			jsporder.setBounds(750, 400, 275, 250);
+			jsporder.setBounds(400, 450, 375, 200);
 			
 			onBackground.add(jspsummary);
-			jspsummary.setBounds(1075, 400, 275, 250);
+			jspsummary.setBounds(400, 400, 275, 250);
 			jspsummary.setVisible(false);
 			
+			onBackground.add(updateTotal);
+			updateTotal.setBounds(1075, 620, 125, 25);
+			updateTotal.addActionListener(this);
 			
 			onBackground.add(submit);
 			submit.setBounds(1075,  655, 125, 25);
 			
 			onBackground.add(add);
-			add.setBounds(750, 350, 125, 25);
+			add.setBounds(650, 420, 125, 25);
 			
 			onBackground.add(remove);
-			remove.setBounds(750, 655, 125, 25);
+			remove.setBounds(650, 655, 125, 25);
 			
 			onBackground.add(print);
 			print.setBounds(1075, 685, 125, 25);
+			
+			
 			
 			//****************************************Quantity combo box
 			for(int i = 1; i < 11; i++) {
 				quantity.addItem(i);
 			}
 			onBackground.add(quantity);
-			quantity.setBounds(750, 300, 125, 30);
+			quantity.setBounds(400, 400, 125, 30);
 			
 			//****************************************Size combo box
 			size.addItem("S");
 			size.addItem("M");
 			size.addItem("L");
 			onBackground.add(size);
-			size.setBounds(750, 265, 125, 30);
+			size.setBounds(400, 350, 125, 30);
 			size.setVisible(true);
 			
 		
@@ -504,6 +514,7 @@ public class MainPos extends JFrame implements ActionListener {
 				customer.setFirstName(firstName.getText().trim());
 				customer.setLastName(lastName.getText().trim());
 				customer.setAddress(address.getText().trim());
+				customer.setCity(city.getText().trim());
 				customer.setState(state.getText().trim());
 				customer.setZip(Integer.parseInt(zip.getText().trim()));
 				customer.setPhoneNum(phone.getText().trim());
@@ -565,6 +576,7 @@ public class MainPos extends JFrame implements ActionListener {
 				orderBtn.addActionListener(action -> {
 					f.dispose();
 					JOptionPane.showMessageDialog(null, "Thank you for your busienss. Your order has been placed", "InfoBox: ", JOptionPane.INFORMATION_MESSAGE);
+					writeUsingFileWriter("File Works");
 				});
 				
 				
@@ -572,6 +584,7 @@ public class MainPos extends JFrame implements ActionListener {
 				customer.setFirstName(firstName.getText().trim());
 				customer.setLastName(lastName.getText().trim());
 				customer.setAddress(address.getText().trim());
+				customer.setCity(city.getText().trim());
 				customer.setState(state.getText().trim());
 				customer.setZip(Integer.parseInt(zip.getText().trim()));
 				customer.setPhoneNum(phone.getText().trim());
@@ -612,14 +625,11 @@ public class MainPos extends JFrame implements ActionListener {
 				
 				
 				if(override.getText().isEmpty() == false) {
-					
-					//totalItemPrice = new BigDecimal(override.getText().trim());
-					//totalItemPrice = totalItemPrice.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+		
 					trackTotal = new BigDecimal(override.getText().trim());
 					numOrderTotal.setText("$" + trackTotal.toPlainString());
 					
 				}else if(coupon.getText().isEmpty() == false) {
-					//System.out.println("in coupon");
 					String temp = coupon.getText().trim();
 					System.out.println(temp);
 					if(temp.equals("12345")) {
@@ -632,17 +642,12 @@ public class MainPos extends JFrame implements ActionListener {
 						numOrderTotal.setText("$" + trackTotal.toPlainString());
 					}
 				}else if(discount.getText().isEmpty() == false) {
-					//String discnt = discount.getText().trim();
-					//disc = new BigDecimal(discount.getText().trim());
+
 					trackTotal = trackTotal.multiply(new BigDecimal("1").subtract(new BigDecimal(".25")));
 					trackTotal = trackTotal.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 
 					numOrderTotal.setText("$" + trackTotal.toPlainString());
 				}
-
-				
-				//totalItemPrice = totalItemPrice.multiply(new BigDecimal("1").subtract(disc));
-				//totalItemPrice = totalItemPrice.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 
 			}
 			
@@ -667,6 +672,24 @@ public class MainPos extends JFrame implements ActionListener {
 	
 		
 	}
+	
+	private static void writeUsingFileWriter(String data) {
+        File file = new File("FileWriter.txt");
+        FileWriter fr = null;
+        try {
+            fr = new FileWriter(file);
+            fr.write(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            //close resources
+            try {
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
 } //end of class
