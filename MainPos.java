@@ -39,6 +39,7 @@ public class MainPos extends JFrame implements ActionListener {
 	JButton remove = new JButton("Remove Items");
 	JButton print = new JButton("Print");
 	JButton updateTotal = new JButton("Update Total");
+	JButton changeSize = new JButton("Change Button");
 	
 	
 	
@@ -319,6 +320,9 @@ public class MainPos extends JFrame implements ActionListener {
 			onBackground.add(add);
 			add.setBounds(650, 420, 125, 25);
 			
+			onBackground.add(changeSize);
+			changeSize.setBounds(550, 655, 125, 25);
+			
 			onBackground.add(remove);
 			remove.setBounds(650, 655, 125, 25);
 			
@@ -356,6 +360,7 @@ public class MainPos extends JFrame implements ActionListener {
 		print.setVisible(true);
 		print.addActionListener(this);
 		quantity.addActionListener(this);
+		changeSize.addActionListener(this);
 		
 		String arr[] = {"Eye Patch","Pirate Hat","Telescope"};
 		for(int i = 0; i < arr.length; i++) {
@@ -412,6 +417,7 @@ public class MainPos extends JFrame implements ActionListener {
 					trackTotal = trackTotal.add(totalItemPrice);
 					numOrderTotal.setText("$" + trackTotal.toPlainString());
 					eyePatch_CB.setSelected(false);
+					totalItemPrice = new BigDecimal("0");
 				}else if(pirateHat_CB.isSelected() == true) {
 					Pirate_Hats newItem = new Pirate_Hats();
 					BigDecimal basePrice = newItem.getPrice();
@@ -509,6 +515,84 @@ public class MainPos extends JFrame implements ActionListener {
 				
 				order.products.remove(orderitem.getSelectedIndex());
 				orderItems.removeElementAt(orderitem.getSelectedIndex());
+				
+			}else if(e.getSource() == changeSize) { //****************************************change size button
+				//BigDecimal basePrice = newItem.getPrice();
+				//basePrice = basePrice.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+				//BigDecimal totalItemPrice = new BigDecimal("0");
+				int selectSize = size.getSelectedIndex();
+				char chSize = 'S';
+				switch(selectSize) {
+					case 0: chSize = 'S'; break; case 1: chSize = 'M'; break; case 2: chSize = 'L'; break;
+				}
+				//newItem.setSize(chSize);
+				//newItem.setNumberToOrder(quantity.getSelectedIndex() + 1);
+				//****************************************************************get the size
+				String sz = "Small";
+				switch(chSize) {
+				case 'S': sz = "Small"; break; case 'M': sz = "Medium"; break; case 'L': sz = "Large"; break;
+				}
+				
+				//****************************************************************get item to edit
+				Product editItem = order.products.get(orderitem.getSelectedIndex());
+				Product tempItem = order.products.get(orderitem.getSelectedIndex());
+				char tempCh = order.products.get(orderitem.getSelectedIndex()).getSize();
+
+				editItem.setSize(chSize);
+				String nm = editItem.getName();
+				int item = 0;
+				//switch(nm) {
+				//	case ("Eye Patch"): item = 0; break; case ("Telescope"): item = 1; break; case ("Pirate Hat"): item = 2; break; 
+				//}
+				BigDecimal totalItemPrice2 = new BigDecimal("0");
+				if(item == 0) {
+				
+					totalItemPrice2 = totalItemPrice2.add(editItem.calcTotal(editItem.getNumberToOrder(), tempCh, totalItemPrice2));
+					totalItemPrice2 = totalItemPrice2.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+					trackTotal = trackTotal.subtract(totalItemPrice2);
+					totalItemPrice2 = totalItemPrice2.subtract(totalItemPrice2);
+					totalItemPrice2 = totalItemPrice2.add(editItem.calcTotal(editItem.getNumberToOrder(), chSize, totalItemPrice2));
+					totalItemPrice2 = totalItemPrice2.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+					order.products.get(orderitem.getSelectedIndex()).setSize(chSize);
+
+										
+				}else if( item == 1) {
+					totalItemPrice = totalItemPrice.add(editItem.calcTotal(editItem.getNumberToOrder(), editItem.getSize(), totalItemPrice));
+					totalItemPrice = totalItemPrice.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+
+					num_telescopes -= editItem.getNumberToOrder();					
+					numTelescopes.setText("" + num_telescopes);
+					trackTotal = trackTotal.subtract(totalItemPrice);
+					numOrderTotal.setText("$" + trackTotal.toPlainString());
+				}else if(item == 2) {
+					totalItemPrice = totalItemPrice.add(editItem.calcTotal(editItem.getNumberToOrder(), editItem.getSize(), totalItemPrice));
+					totalItemPrice = totalItemPrice.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+
+					num_hats -= editItem.getNumberToOrder();					
+					numHats.setText("" + num_hats);
+					trackTotal = trackTotal.subtract(totalItemPrice);
+					numOrderTotal.setText("$" + trackTotal.toPlainString());
+				}
+				
+				
+				
+				//totalItemPrice = totalItemPrice.add(editItem.calcTotal(editItem.getNumberToOrder(), chSize, new BigDecimal("0")));
+				//totalItemPrice = totalItemPrice.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+
+				//orderitem.
+				//order.products.add(editItem);
+				//orderItems.addElement(new displayItems("[" + editItem.getNumberToOrder() + "] Eye Patch---" +
+				//			sz + " " + editItem.getMaterial()) +" $" + totalItemPrice.toPlainString());
+				
+				orderItems.add(orderitem.getSelectedIndex(), new displayItems("[" + editItem.getNumberToOrder() + "] Eye Patch---" +
+							sz + " " + editItem.getMaterial()) +" $" + totalItemPrice2.toPlainString());
+				orderItems.remove(orderitem.getSelectedIndex() + 1);
+				//totalItemPrice = new BigDecimal("0");
+				trackTotal = trackTotal.add(totalItemPrice2);
+				numOrderTotal.setText("$" + trackTotal.toPlainString());
+
+				
+				
 				
 			}else if (e.getSource() == submit) {
 				customer.setFirstName(firstName.getText().trim());
