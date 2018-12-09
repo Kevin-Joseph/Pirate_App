@@ -23,6 +23,7 @@ public abstract class Product {
 	public abstract BigDecimal getSalesTax();
 	public abstract int getNumberToOrder();
 	public abstract char getSize();
+	public abstract String getMaterial();
 	
 	public abstract void setName(String s);
 	public abstract void setType(String s);
@@ -31,6 +32,7 @@ public abstract class Product {
 	public abstract void setColor(Color c);
 	public abstract void setSalesTax(BigDecimal d);
 	public abstract void setNumberToOrder(int i);
+	public abstract void setSize(char ch);
 
 }
 

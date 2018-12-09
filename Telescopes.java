@@ -7,6 +7,7 @@ public class Telescopes extends Product{
 	protected char size;
 	//protected int size;
 	protected int magnification;
+	protected String material;
 	
 	//**********************************************Constructor
 	@SuppressWarnings("deprecation")
@@ -66,6 +67,9 @@ public class Telescopes extends Product{
 		return numberToOrder;
 	}
 
+	public String getMaterial() {
+		return material;
+	}
 	
 	
 	//**************************************************Setters
