@@ -16,14 +16,13 @@ public class Order {
 	protected double total;
 	protected boolean hasDiscount;
 	protected double discount;
-	protected long ccNumber;
+	protected String paymentMethod;
 	//*****************************************************Constructor
 	public Order() {
 		date ="" + java.time.LocalDate.now();
 		total = 0.0;
 		hasDiscount = false;
 		discount = 0.0;
-		ccNumber = 0000000000;
 	}
 	
 	//****************************************************Getters
@@ -38,8 +37,8 @@ public class Order {
 	public double getDiscount() {
 		return discount;
 	}
-	public double getCCNumber() {
-		return ccNumber;
+	public String getPaymentMethod() {
+		return paymentMethod;
 	}
 	
 	//*****************************************************Setters
@@ -73,8 +72,9 @@ public class Order {
 	public void setDisount(double d) {
 		discount = d;
 	}
-	public void setCCNumber(long l) {
-		ccNumber = l;
+	public void setPaymentMethod(String s) {
+		paymentMethod = s;
 	}
+
 
 }
