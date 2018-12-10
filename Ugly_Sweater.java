@@ -2,8 +2,7 @@ import java.awt.Color;
 import java.math.BigDecimal;
 
 public class Ugly_Sweater extends Product{
-	
-	protected String material;
+
 	protected char size;
 
 	
@@ -18,7 +17,6 @@ public class Ugly_Sweater extends Product{
 		color = Color.GRAY;
 		salestax = new BigDecimal("0.0825"); //could be static
 		salestax = salestax.setScale(4, BigDecimal.ROUND_HALF_EVEN);
-		material = "Leather";
 		size = 'n';
 	}
 
@@ -52,11 +50,7 @@ public class Ugly_Sweater extends Product{
 	public BigDecimal getSalesTax() {
 		return salestax;
 	}
-	
-	public String getMaterial() {
-		return material;
-	}
-	
+
 	public char getSize() {
 		return size;
 	}
@@ -96,10 +90,6 @@ public class Ugly_Sweater extends Product{
 		salestax = d;
 	}
 	
-	public void setMaterial(String s) {
-		material = s;
-	}
-	
 	public void setSize(char c) {
 		size = c;
 	}
@@ -133,9 +123,15 @@ public class Ugly_Sweater extends Product{
 	
 	public String toString() {
 		String s = "[" + this.getNumberToOrder() + "]" + this.getName() +
-				   "---" + this.getSize() + " " + this.getMaterial() + " $" + 
+				   "---" + this.getSize() +  " $" + 
 				   this.calcTotal(this.getNumberToOrder(), this.getSize(), new BigDecimal("0"));
 		return s;		
+	}
+
+	@Override
+	public String getMaterial() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }//End of class

@@ -3,9 +3,7 @@ import java.math.BigDecimal;
 
 public class Santa_Hats extends Product{
 	
-	protected String material;
 	protected char size;
-	protected String style;
 
 	//**********************************************Constructor
 	@SuppressWarnings("deprecation")
@@ -18,9 +16,7 @@ public class Santa_Hats extends Product{
 		color = Color.GRAY;
 		salestax = new BigDecimal("0.0825"); //could be static
 		salestax = salestax.setScale(2, BigDecimal.ROUND_HALF_EVEN);
-		material = "Leather";
 		size = 'S';
-		style = "The Jack Sparrow";
 	}
 
 	//**********************************************Getters
@@ -54,18 +50,10 @@ public class Santa_Hats extends Product{
 		return salestax;
 	}
 	
-	public String getMaterial() {
-		return material;
-	}
-	
 	public char getSize() {
 		return size;
 	}
-	
-	public String getStyle() {
-		return style;
-	}
-	
+
 	public int getNumberToOrder() {
 		return numberToOrder;
 	}
@@ -100,19 +88,11 @@ public class Santa_Hats extends Product{
 	public void setSalesTax(BigDecimal d) {
 		salestax = d;
 	}
-	
-	public void setMaterial(String s) {
-		material = s;
-	}
-	
+
 	public void setSize(char c) {
 		size = c;
 	}
 
-	public void setStyle(String s) {
-		style = s;
-	}
-	
 	public void setNumberToOrder(int num) {
 		numberToOrder = num;
 	}
@@ -140,8 +120,15 @@ public class Santa_Hats extends Product{
 	
 	public String toString() {
 		String s = "[" + this.getNumberToOrder() + "]" + this.getName() +
-				   "---" + this.getSize() + " " + this.getMaterial() + " $" + 
+				   "---" + this.getSize() + " $" + 
 				   this.calcTotal(this.getNumberToOrder(), this.getSize(), new BigDecimal("0"));
 		return s;		
 	}
+
+	@Override
+	public String getMaterial() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -37,6 +37,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.DocumentFilter;
 
 import javafx.scene.media.AudioClip;
 
@@ -85,7 +86,7 @@ public class MainPos extends JFrame implements ActionListener {
 	JScrollPane jspsummary = new JScrollPane(ordersummary);
 
 //Labels
-	JLabel firstNamel = new JLabel("First Name:"), lastNamel = new JLabel("Last Name: "),
+	JLabel firstNamel = new JLabel("First Name:"),lastNamel = new JLabel("Last Name: "),
 			addressl = new JLabel("Address: "), cityl = new JLabel("City: "), statel = new JLabel("State: "),
 			zipl = new JLabel("Zip: "), emaill = new JLabel("Email: "), phonel = new JLabel("Phone: "),
 			couponl = new JLabel("Coupon: "), discountl = new JLabel("Discount: "),
@@ -508,8 +509,8 @@ public class MainPos extends JFrame implements ActionListener {
 
 				order.products.add(newItem);
 				orderItems.addElement(new displayItems(
-						"[" + newItem.getNumberToOrder() + "] Ugly Sweater---" + sz + " " + newItem.getMaterial()) + " $"
-						+ totalItemPrice.toPlainString());
+						"[" + newItem.getNumberToOrder() + "] Ugly Sweater---" + sz + " $"
+						+ totalItemPrice.toPlainString()));
 
 				num_ugly_sweaters += quantity.getSelectedIndex() + 1;
 				numUglySweaters.setText("" + num_ugly_sweaters);
@@ -555,8 +556,8 @@ public class MainPos extends JFrame implements ActionListener {
 
 				order.products.add(newItem);
 				orderItems.addElement(new displayItems(
-						"[" + newItem.getNumberToOrder() + "] Santa Hat---" + sz + " " + newItem.getMaterial()) + " $"
-						+ totalItemPrice.toPlainString());
+						"[" + newItem.getNumberToOrder() + "] Santa Hat---" + sz + " $"
+						+ totalItemPrice.toPlainString()));
 
 				num_santa_hats += quantity.getSelectedIndex() + 1;
 				numSantaHats.setText("" + num_santa_hats);
@@ -603,8 +604,8 @@ public class MainPos extends JFrame implements ActionListener {
 
 				order.products.add(newItem);
 				orderItems.addElement(new displayItems(
-						"[" + newItem.getNumberToOrder() + "] Onesie---" + sz + " " + newItem.getMagnification())
-						+ "X $" + totalItemPrice.toPlainString());
+						"[" + newItem.getNumberToOrder() + "] Onesie---" + sz + " " 
+						+ "$" + totalItemPrice.toPlainString()));
 
 				num_onesies += quantity.getSelectedIndex() + 1;
 				numOnesies.setText("" + num_onesies);
@@ -714,8 +715,8 @@ public class MainPos extends JFrame implements ActionListener {
 
 			orderItems.add(orderitem.getSelectedIndex(),
 					new displayItems(
-							"[" + editItem.getNumberToOrder() + "] Ugly Sweater---" + sz + " " + editItem.getMaterial())
-							+ " $" + totalItemPrice2.toPlainString());
+							"[" + editItem.getNumberToOrder() + "] Ugly Sweater---" + sz 
+							+ " $" + totalItemPrice2.toPlainString()));
 			orderItems.remove(orderitem.getSelectedIndex() + 1);
 			trackTotal = trackTotal.add(totalItemPrice2);
 			numOrderTotal.setText("$" + trackTotal.toPlainString());
@@ -791,8 +792,8 @@ public class MainPos extends JFrame implements ActionListener {
 			}
 			orderItems.add(orderitem.getSelectedIndex(),
 					new displayItems(
-							"[" + editItem.getNumberToOrder() + "] Ugly Sweater---" + sz + " " + editItem.getMaterial())
-							+ " $" + totalItemPrice2.toPlainString());
+							"[" + editItem.getNumberToOrder() + "] Ugly Sweater---" + sz
+							+ " $" + totalItemPrice2.toPlainString()));
 			orderItems.remove(orderitem.getSelectedIndex() + 1);
 			trackTotal = trackTotal.add(totalItemPrice2);
 			numOrderTotal.setText("$" + trackTotal.toPlainString());

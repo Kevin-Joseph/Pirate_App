@@ -6,7 +6,6 @@ public class Onesies extends Product{
 	//protected String material;
 	protected char size;
 	//protected int size;
-	protected int magnification;
 	
 	//**********************************************Constructor
 	@SuppressWarnings("deprecation")
@@ -20,7 +19,6 @@ public class Onesies extends Product{
 		salestax = new BigDecimal("0.0825"); //could be static
 		salestax = salestax.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 		size = 'S';
-		magnification = 50;
 	}
 
 	//**********************************************Getters
@@ -56,10 +54,6 @@ public class Onesies extends Product{
 	
 	public char getSize() {
 		return size;
-	}
-	
-	public int getMagnification() {
-		return magnification;
 	}
 	
 	public int getNumberToOrder() {
@@ -102,11 +96,7 @@ public class Onesies extends Product{
 	public void setSize(char i) {
 		size = i;
 	}
-	
-	public void setMagnification(int i) {
-		magnification = i;
-	}
-	
+
 	public void setNumberToOrder(int num) {
 		numberToOrder = num;
 	}
