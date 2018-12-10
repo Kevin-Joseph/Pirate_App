@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -19,26 +20,26 @@ class MyPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        try {
-            File pathToFile = new File("Gradient-blue-1.jpg");
-            Image image = ImageIO.read(pathToFile);
-       		g.drawImage(image, 0, 0, this);
+       // try {
+         //   File pathToFile = new File("background_3.jpg");
+           // Image image = ImageIO.read(pathToFile);
+       		//g.drawImage(image, 0, 0, this);
 
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        //} catch (IOException ex) {
+          //  ex.printStackTrace();
+        //}
         
 		//g.setColor( new Color( 153, 204, 255, 255) );
-		g.setColor( new Color( 255, 255, 255, 255) );
+		g.setColor(Color.GREEN.darker() );
 		g.setFont( new Font("Stencil", 1, 44) ); //Old English Text MT
-		g.drawString("- SS DUKE PIRATE EMPORUIM -", 350, 40);
+		g.drawString("- THE CHRISTMAS STORE -", 350, 40);
 		
-		g.setColor( new Color( 150, 150, 255, 255) );
-		g.setColor( new Color( 100, 100, 100, 255) );
+		g.setColor(Color.RED.darker());
+		g.setColor(Color.RED.darker());
 		g.setFont( new Font("Stencil", 1, 44) );
-		g.drawString("- SS DUKE PIRATE EMPORUIM -", 349, 39);
+		g.drawString("- THE CHRISTMAS STORE -", 349, 39);
 		
-		g.setColor( new Color( 100, 100, 100, 255) );
+		g.setColor(Color.GREEN.darker());
 		g.setFont( new Font("Stencil", 0, 20) );
 		g.drawString(strDate, 100, 35);
         
