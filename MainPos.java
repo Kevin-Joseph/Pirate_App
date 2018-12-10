@@ -122,6 +122,7 @@ public class MainPos extends JFrame implements ActionListener {
 	JCheckBox SantaHat_CB = new JCheckBox("Santa Hat");
 	JCheckBox uglySweater_CB = new JCheckBox("Ugly Sweater");
  	JCheckBox Onesie_CB = new JCheckBox("Reindeer Onesie");
+ 	ButtonGroup groupCB	 = new ButtonGroup();
 
  	java.applet.AudioClip argh; 
  	
@@ -308,6 +309,11 @@ public class MainPos extends JFrame implements ActionListener {
 		Onesie_CB.setSelected(false);
 		onBackground.add(Onesie_CB);
 		Onesie_CB.setBounds(900 - 300-15, 280, 130, 25);
+		
+		// Group the check boxes.
+				groupCB.add(uglySweater_CB);
+				groupCB.add(SantaHat_CB);
+				groupCB.add(Onesie_CB);
 
 		ImageIcon background = new ImageIcon("atlas.jpg"); // Gradient-blue-1.jpg
 		ImageIcon perry = new ImageIcon("perrythepirate1.jpg");
