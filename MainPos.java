@@ -1,3 +1,5 @@
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,11 +15,19 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.SourceDataLine;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -127,6 +137,15 @@ public class MainPos extends JFrame implements ActionListener {
     JRadioButton creditButton = new JRadioButton("Credit");
     JRadioButton checkButton = new JRadioButton("Check");
     ButtonGroup group = new ButtonGroup();
+    
+    private final int BUFFER_SIZE = 128000;
+    private File soundFile;
+    private AudioInputStream audioStream;
+    private AudioFormat audioFormat;
+    private SourceDataLine sourceLine;
+    @SuppressWarnings("deprecation")
+	AudioClip christmasSound; 
+
 
 
 	public static void main(String[] args) {
@@ -148,10 +167,79 @@ public class MainPos extends JFrame implements ActionListener {
 		app.setTitle("SSDUKE Pirate Emporium");
 		app.setVisible(true);
 	}
+	
+	
+	public void playSound(String filename){
 
-	@SuppressWarnings("unchecked")
+        String strFilename = filename;
+
+        try {
+            soundFile = new File(strFilename);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        try {
+            audioStream = AudioSystem.getAudioInputStream(soundFile);
+        } catch (Exception e){
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        audioFormat = audioStream.getFormat();
+
+        DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
+        try {
+            sourceLine = (SourceDataLine) AudioSystem.getLine(info);
+            sourceLine.open(audioFormat);
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+            System.exit(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        sourceLine.start();
+
+        int nBytesRead = 0;
+        byte[] abData = new byte[BUFFER_SIZE];
+        while (nBytesRead != -1) {
+            try {
+                nBytesRead = audioStream.read(abData, 0, abData.length);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (nBytesRead >= 0) {
+                @SuppressWarnings("unused")
+                int nBytesWritten = sourceLine.write(abData, 0, nBytesRead);
+            }
+        }
+
+        sourceLine.drain();
+        sourceLine.close();
+    }
+//}
+
+	
+
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	MainPos() {
+		
+		URL christmasURL;
+		try {
+			christmasURL = new URL("file:xmas.wav");
+			christmasSound = Applet.newAudioClip(christmasURL);
+			
+			
 
+		} catch (MalformedURLException frack) {
+			frack.printStackTrace();
+		}
+		
+		//playSound("C:\\Users\\Kevin\\Documents\\Eclipse_Java\\Final_Project\\xmas.wav");
+		christmasSound.play();
 		JLabel onBackground = new JLabel();
 		
 	    cashButton.setMnemonic(KeyEvent.VK_B);
